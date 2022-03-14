@@ -15,6 +15,6 @@
 
 $router->get('/', function () use ($router) {
     //return $router->app->version();
-    dd(DB::getPDO());
+    //dd(DB::getPDO());
     return 'Hello World';
 });

@@ -17,17 +17,22 @@ DataDog?
 
 
 
-=====
+```bash
 docker exec -it ccb2ac8a5aaa sh
-=====
+```
 
 
-=====
+```bash
 docker-compose --env-file .env up --build
-=====
+```
 
 
-=====
+```bash
 docker exec -it app bash
-=====
+```
 
+
+```
+php composer.phar --no-dev --prefer-dist install 
+php artisan key:generate  
+```
