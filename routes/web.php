@@ -28,3 +28,7 @@ $router->get('/', function () use ($router) {
 $router->get('/dbtest', function () use ($router) {
     dd(DB::getPDO());    
 });
+
+
+
+$router->get('/save', 'PokemonController@save');

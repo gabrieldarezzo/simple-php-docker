@@ -5,7 +5,7 @@ WORKDIR /app
 
 RUN apt update
 
-RUN apt install -y git libzip-dev zip && \ 
+RUN apt install -y git libzip-dev zip && \
     docker-php-ext-install zip mysqli pdo pdo_mysql && \
     docker-php-ext-enable pdo_mysql
 
@@ -28,4 +28,5 @@ RUN composer install
 
 # Make storage folder and give access to www-data
 RUN mkdir -p /app/storage && \
+    chmod -R ugo+rw /app/storage && \
     chown -R www-data:www-data /app/storage

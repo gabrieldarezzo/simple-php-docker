@@ -1,6 +1,6 @@
-Consumir uma API,
-Ex:
-https://pokeapi.co/api/v2/pokemon/1/
+Consumir uma API,  
+Ex:  
+`https://pokeapi.co/api/v2/pokemon/1/` 
 
 
 https://pokeapi.co/api/v2/pokemon/idPokemano/ 1 ~ 10228
@@ -16,6 +16,19 @@ DataDog?
 =====
 
 
+
+https://pokeapi.co/api/v2/pokemon/1/
+
+
+First:
+```bash
+docker-compose up --build -d
+```
+
+Just up
+```bash
+
+```
 
 ```bash
 docker exec -it ccb2ac8a5aaa sh
