@@ -16,6 +16,8 @@ services:
     container_name: db
     image: mysql:8.0
     restart: always
+    ports:
+      - '3306:3306'
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
