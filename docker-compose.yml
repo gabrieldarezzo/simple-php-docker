@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  app:
+    container_name: app
+    build: .
+    env_file: .env
+    ports:
+      - "8080:80"      
+    depends_on:
+      - db
+    volumes:
+      - .:/app:delegated
+      - ~/.composer:/home/root/.composer:delegated
+  db:
+    container_name: db
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./database/mysql-data:/var/lib/mysql:rw
+volumes:
+  mysql-data:
