@@ -44,6 +44,10 @@ docker-compose --env-file .env up --build
 docker exec -it app bash
 ```
 
+## Testes:
+```bash
+docker exec -it app ./vendor/bin/phpunit
+```
 
 ```
 php composer.phar --no-dev --prefer-dist install 
