@@ -1,5 +1,6 @@
 FROM php:7.4-apache
 
+
 WORKDIR /app
 
 RUN apt update
@@ -24,3 +25,7 @@ RUN echo "xdebug.mode=off" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xde
 
 COPY . .
 RUN composer install
+
+# Make storage folder and give access to www-data
+RUN mkdir -p /app/storage && \
+    chown -R www-data:www-data /app/storage

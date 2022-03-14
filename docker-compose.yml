@@ -23,6 +23,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
     command: mysqld --default-authentication-plugin=mysql_native_password
     volumes:
-      - ./database/mysql-data:/var/lib/mysql:rw
+      - ./db_database/mysql-data:/var/lib/mysql:rw
 volumes:
   mysql-data:

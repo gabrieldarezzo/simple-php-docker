@@ -13,8 +13,18 @@
 |
 */
 
+
+
+$router->get('/health', function () use ($router) {
+    return 'ok';
+});
+
+
 $router->get('/', function () use ($router) {
-    //return $router->app->version();
-    //dd(DB::getPDO());
     return 'Hello World';
+});
+
+
+$router->get('/dbtest', function () use ($router) {
+    dd(DB::getPDO());    
 });
