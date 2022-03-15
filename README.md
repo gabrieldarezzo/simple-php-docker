@@ -20,31 +20,41 @@ DataDog?
 https://pokeapi.co/api/v2/pokemon/1/
 
 
-First:
+## Install:
+
+### Copy file `.env.example` to `.env`
+```bash
+cp .env.example .env
+```
+
+### Setting App && DB:
 ```bash
 docker-compose up --build -d
 ```
 
-Just up
+### Setting App && DB:
 ```bash
-
+docker exec -it app php artisan migrate:fresh --seed
 ```
 
+### Composer install
 ```bash
-docker exec -it ccb2ac8a5aaa sh
+docker exec -it app composer install
 ```
 
-
+## Just up
 ```bash
-docker-compose --env-file .env up --build
+docker-compose up --force-recreate -d
 ```
 
+## Utils:
 
+### Enter in container:
 ```bash
 docker exec -it app bash
 ```
 
-## Testes:
+## Execute tests:
 ```bash
 docker exec -it app ./vendor/bin/phpunit
 ```

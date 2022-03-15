@@ -5,7 +5,7 @@ WORKDIR /app
 
 RUN apt update
 
-RUN apt install -y git libzip-dev zip && \
+RUN apt install -y git default-mysql-client libzip-dev zip && \
     docker-php-ext-install zip mysqli pdo pdo_mysql && \
     docker-php-ext-enable pdo_mysql
 
