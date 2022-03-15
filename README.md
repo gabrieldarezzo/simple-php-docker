@@ -55,8 +55,10 @@ docker exec -it app bash
 ```
 
 ### URLs:
-|   Env  |   Url     |   
-|   Local   |   http://localhost:8080/random    |
+| Env   | Url                          |   
+|-------|------------------------------|
+| Local | http://localhost:8080/random |
+| QA    | -                            |
 
 
 
