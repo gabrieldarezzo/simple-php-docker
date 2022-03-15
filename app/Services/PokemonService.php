@@ -13,6 +13,10 @@ class PokemonService
      */
     private $client;
 
+    /**
+     * @var array
+     */
+    private $pokemon;
 
     /**
      * Create a new controller instance.
@@ -53,9 +57,26 @@ class PokemonService
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getRandomPokemonName(): string
+    public function getPokemonName(): string
     {
-        $pokemon = $this->getRandomPokemon();
-        return $pokemon['name'];
+        return $this->pokemon['name'];
+    }
+
+    /**
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getPokemonPhoto(): string
+    {
+        return $this->pokemon['sprites']['front_default'];
+    }
+
+    /**
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function setPokemon($pokemon)
+    {
+        return $this->pokemon = $pokemon;
     }
 }

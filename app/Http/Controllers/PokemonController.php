@@ -21,13 +21,13 @@ class PokemonController extends Controller
         $this->pokemonService = $pokemonService;
     }
 
-    public function save()
+    public function random()
     {
         try {
-            return $this->pokemonService->getRandomPokemonName();
+            $this->pokemonService->setPokemon($this->pokemonService->getRandomPokemon());
+            return "<h3>{$this->pokemonService->getPokemonName()}</h3><hr/><img src='{$this->pokemonService->getPokemonPhoto()}'/>";
         } catch (\Exception $exception) {
             die($exception->getMessage());
         }
-
     }
 }

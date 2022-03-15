@@ -26,9 +26,9 @@ $router->get('/', function () use ($router) {
 
 
 $router->get('/dbtest', function () use ($router) {
-    dd(DB::getPDO());    
+    dd(DB::getPDO());
 });
 
 
 
-$router->get('/save', 'PokemonController@save');
+$router->get('/random', 'PokemonController@random');

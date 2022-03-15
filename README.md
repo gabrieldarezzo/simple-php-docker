@@ -54,6 +54,16 @@ docker-compose up --force-recreate -d
 docker exec -it app bash
 ```
 
+### URLs:
+|   Env  |   Url     |   
+|   Local   |   http://localhost:8080/random    |
+
+
+
+
+
+
+
 ## Execute tests:
 ```bash
 docker exec -it app ./vendor/bin/phpunit
