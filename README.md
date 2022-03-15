@@ -59,6 +59,9 @@ docker exec -it app bash
 docker exec -it app ./vendor/bin/phpunit
 ```
 
+## Deploy ?
+
+### Scripts:
 ```
 php composer.phar --no-dev --prefer-dist install 
 php artisan key:generate  

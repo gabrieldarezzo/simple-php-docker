@@ -15,31 +15,36 @@ class PokemonService
 
 
     /**
-     * @var array
-     */
-    private $pokemon;
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Client $client)
     {
-        $this->pokemon = \stdClass::class;
-        $this->client = new Client([
-            'base_uri' => self::POKEMON_URL,
-        ]);
+        $this->client = $client;
     }
 
+    private function setUrl($url = ''): string
+    {
+        return self::POKEMON_URL . $url;
+    }
 
     /**
-     * @return string
+     * return number beteween generation choise.
+     * @return int
+     */
+    private function getRandomNumber(): int
+    {
+        return rand(1,10);
+    }
+
+    /**
+     * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getRandomPokemon(): array
     {
-        $response = $this->client->request('GET', 'pokemon/' . $this->getRandomNumber());
+        $response = $this->client->request('GET', $this->setUrl('pokemon/' . $this->getRandomNumber()));
         return json_decode($response->getBody()->getContents(), true);
     }
 
@@ -53,16 +58,4 @@ class PokemonService
         $pokemon = $this->getRandomPokemon();
         return $pokemon['name'];
     }
-
-
-    /**
-     * return number beteween generation choise.
-     * @return int
-     */
-    private function getRandomNumber(): int
-    {
-        return rand(1,10);
-    }
-
-
 }
