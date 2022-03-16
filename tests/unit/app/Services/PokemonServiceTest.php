@@ -12,6 +12,11 @@ use TestCase;
 class PokemonServiceTest extends TestCase
 {
 
+    /**
+     * @var PokemonService
+     */
+    private PokemonService $pokemonService;
+
     protected function setUp(): void
     {
         $client  = new Client([

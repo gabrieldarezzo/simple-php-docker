@@ -11,7 +11,7 @@ class ExampleJob extends Job
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -21,6 +21,6 @@ class ExampleJob extends Job
      */
     public function handle()
     {
-        //
+        // die('aa');
     }
 }

@@ -11,12 +11,12 @@ class PokemonService
     /**
      * @var Client
      */
-    private $client;
+    private Client $client;
 
     /**
      * @var array
      */
-    private $pokemon;
+    private array $pokemon;
 
     /**
      * Create a new controller instance.

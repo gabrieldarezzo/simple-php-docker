@@ -42,6 +42,13 @@ docker exec -it app php artisan migrate:fresh --seed
 docker exec -it app composer install
 ```
 
+
+```bash
+docker exec -it app php artisan queue:work --queue=high,default
+```
+
+
+
 ## Just up
 ```bash
 docker-compose up --force-recreate -d
