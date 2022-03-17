@@ -75,6 +75,17 @@ class PokemonService
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
+    public function getPokemonPhotoBase64(): string
+    {
+        $imageManipulatorService = new ImageManipulatorService();
+        return $imageManipulatorService->createBase64FromUrl($this->pokemon['sprites']['front_default']);
+    }
+
+
+    /**
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function setPokemon($pokemon)
     {
         return $this->pokemon = $pokemon;

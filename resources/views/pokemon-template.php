@@ -10,7 +10,12 @@
 
 
 <h3><?php echo $name; ?></h3>
-<hr><img src="<?php echo $img_url; ?>" style="width: 96px;">
+<hr>
+<img src="<?php echo $img_url; ?>" style="width: 96px;">
+
+
+<hr>
+<p><?php echo $uuid; ?></p>
 
 
 </body>

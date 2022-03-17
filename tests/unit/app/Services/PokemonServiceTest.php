@@ -8,6 +8,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use TestCase;
+use unit\dummy\Base64;
 
 class PokemonServiceTest extends TestCase
 {
@@ -24,7 +25,7 @@ class PokemonServiceTest extends TestCase
                 new Response(200, ['Content-Type' => 'application/json'], json_encode([
                     'name' => 'charmeleon',
                     'sprites' => [
-                        "front_default" => "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png"
+                        "front_default" => "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png"
                     ]
                 ]))
             ])),
@@ -43,6 +44,19 @@ class PokemonServiceTest extends TestCase
     {
         $this->pokemonService->setPokemon($this->pokemonService->getRandomPokemon());
         $pokemonPhoto = $this->pokemonService->getPokemonPhoto();
-        $this->assertEquals('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png', $pokemonPhoto);
+        $this->assertEquals('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png', $pokemonPhoto);
     }
+
+
+    public function testGetPokemonPhotoBase64()
+    {
+        $this->pokemonService->setPokemon($this->pokemonService->getRandomPokemon());
+        $pokemonPhotoBase64 = $this->pokemonService->getPokemonPhotoBase64();
+        $this->assertStringContainsString('data:image/;base64', $pokemonPhotoBase64);
+        $base64 = new Base64();
+        $this->assertEquals($base64->base64, $pokemonPhotoBase64);
+    }
+
+
+//    public function testGetPokemonPhotoBase64ShouldThrowError(){}
 }

@@ -5,15 +5,16 @@ WORKDIR /app
 
 RUN apt update
 
-RUN apt install -y git default-mysql-client libzip-dev zip libpng-dev && \
+RUN apt install -y git default-mysql-client libzip-dev zip libpng-dev libjpeg-dev && \
     docker-php-ext-install zip mysqli pdo pdo_mysql && \
-    docker-php-ext-enable pdo_mysql
+    docker-php-ext-enable pdo_mysql && \
+    docker-php-ext-configure gd --with-jpeg && \
+    docker-php-ext-install -j$(nproc) gd
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN a2enmod rewrite
 
-RUN docker-php-ext-install gd
 
 RUN rm -rf /var/www/html && \
     ln -s /app/public /var/www/html
