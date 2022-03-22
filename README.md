@@ -1,3 +1,4 @@
+
 Consumir uma API,  
 Ex:  
 `https://pokeapi.co/api/v2/pokemon/1/` 
@@ -62,10 +63,10 @@ docker exec -it app bash
 ```
 
 ### URLs:
-| Env   | Url                          |   
-|-------|------------------------------|
-| Local | http://localhost:8080/random |
-| QA    | -                            |
+| Env   | Url                         |   
+|-------|-----------------------------|
+| Local | http://localhost:8080/health |
+| QA    | -                           |
 
 
 

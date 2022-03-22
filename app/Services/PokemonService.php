@@ -2,92 +2,61 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
+use App\Dto\Pokemon;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
+use Barryvdh\DomPDF\PDF;
+use Illuminate\View\View;
 
 class PokemonService
 {
-
-    const POKEMON_URL = 'https://pokeapi.co/api/v2/';
     /**
-     * @var Client
+     * @var PokemonClientService
      */
-    private Client $client;
+    private PokemonClientService $client;
 
-    /**
-     * @var array
-     */
-    private array $pokemon;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @param PokemonClientService $client
      */
-    public function __construct(Client $client)
+    public function __construct(PokemonClientService $client)
     {
         $this->client = $client;
     }
 
-    private function setUrl($url = ''): string
+    /**
+     * @return PDF
+     */
+    public function getPdfWrapper(): Pdf
     {
-        return self::POKEMON_URL . $url;
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('a4', 'landscape');
+        return $pdf;
     }
 
     /**
-     * return number beteween generation choise.
-     * @return int
+     * @param Pokemon $pokemon
+     * @return View|\Laravel\Lumen\Application
      */
-    private function getRandomNumber(): int
+    public function generateHtml(Pokemon $pokemon): View
     {
-        return rand(1,10);
+        return view('pokemon-template', [
+            'name' => $pokemon->name,
+            'img_url' => $pokemon->getPhotoBase64(),
+            'uuid' => $pokemon->getUnique()
+        ]);
     }
 
     /**
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return \Illuminate\Http\Response
      */
-    public function getRandomPokemon(): array
+    public function generatePdfFromPokemon(): Response
     {
-        $response = $this->client->request('GET', $this->setUrl('pokemon/' . $this->getRandomNumber()));
-        return json_decode($response->getBody()->getContents(), true);
+        $pokemon = $this->client->getRandomPokemon();
+        $html = $this->generateHtml($pokemon);
+        $pdf = $this->getPdfWrapper();
+        $pdf->loadHTML($html);
+        return $pdf->stream();
     }
 
-
-    /**
-     * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getPokemonName(): string
-    {
-        return $this->pokemon['name'];
-    }
-
-    /**
-     * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getPokemonPhoto(): string
-    {
-        return $this->pokemon['sprites']['front_default'];
-    }
-
-    /**
-     * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getPokemonPhotoBase64(): string
-    {
-        $imageManipulatorService = new ImageManipulatorService();
-        return $imageManipulatorService->createBase64FromUrl($this->pokemon['sprites']['front_default']);
-    }
-
-
-    /**
-     * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function setPokemon($pokemon)
-    {
-        return $this->pokemon = $pokemon;
-    }
 }

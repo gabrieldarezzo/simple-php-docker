@@ -30,7 +30,5 @@ $router->get('/dbtest', function () use ($router) {
 });
 
 
-
-$router->get('/random', 'PokemonController@random');
 $router->get('/call', 'PokemonController@call');
 $router->get('/pdf', 'PokemonController@pdf');
