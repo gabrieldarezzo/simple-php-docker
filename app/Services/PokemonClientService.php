@@ -55,8 +55,19 @@ class PokemonClientService
      */
     private function getPokemon(int $id): Pokemon
     {
-        $response = $this->client->request('GET', $this->setUrl('pokemon/' . $id));
+        // Separar em outra classe
+        $response = $this->client->request('GET', $this->setUrl('pokemon/' . $id), [
+            'http_errors' => false
+        ]);
+
+        if($response->getStatusCode() === 404) {
+            throw new \Exception('Pokemon not Found');
+        }
+
+
         $pokemonArr = json_decode($response->getBody()->getContents(), true);
+
+
         return new Pokemon(
             $pokemonArr['id'],
             $pokemonArr['name'],

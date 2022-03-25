@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Dto\Pokemon;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Barryvdh\DomPDF\PDF;
@@ -21,7 +22,7 @@ class PokemonService
      */
     public function __construct(PokemonClientService $client)
     {
-        $this->client = $client;
+        $this->client = new $client;
     }
 
     /**
@@ -43,6 +44,7 @@ class PokemonService
         return view('pokemon-template', [
             'name' => $pokemon->name,
             'img_url' => $pokemon->getPhotoBase64(),
+            //'img_url' => $pokemon->photo,
             'uuid' => $pokemon->getUnique()
         ]);
     }
@@ -52,11 +54,15 @@ class PokemonService
      */
     public function generatePdfFromPokemon(): Response
     {
-        $pokemon = $this->client->getRandomPokemon();
-        $html = $this->generateHtml($pokemon);
-        $pdf = $this->getPdfWrapper();
-        $pdf->loadHTML($html);
-        return $pdf->stream();
+        try {
+            $pokemon = $this->client->getRandomPokemon();
+            $html = $this->generateHtml($pokemon);
+            $pdf = $this->getPdfWrapper();
+            $pdf->loadHTML($html);
+            return $pdf->stream();
+        } catch (\Exception $exception) {
+
+        }
     }
 
 }

@@ -4,6 +4,7 @@
 namespace unit\app\Services;
 use App\Dto\Pokemon;
 use App\Services\PokemonClientService;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -20,7 +21,7 @@ class PokemonClientServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $client  = new Client([
+        $client = new Client([
             'handler' => HandlerStack::create(new MockHandler([
                 new Response(200, ['Content-Type' => 'application/json'], json_encode([
                     'id' => 10,
@@ -39,6 +40,22 @@ class PokemonClientServiceTest extends TestCase
         $this->assertInstanceOf(Pokemon::class, $this->pokemonClientService->getRandomPokemon());
     }
 
-    //    public function testGetPokemonErrorShouldThrowError(){}
+
+    public function testGetPokemonReponseNotFoundShouldThrowPokemonNotFound()
+    {
+        $this->expectException(Exception::class);
+
+        $client = new Client([
+            'handler' => HandlerStack::create(new MockHandler([
+                new Response(404, ['Content-Type' => 'application/json'], json_encode([
+                    'error_message' => 'Pokemon Not Found'
+                ]))
+            ])),
+        ]);
+        $this->pokemonClientService = new PokemonClientService($client);
+        $this->pokemonClientService->getRandomPokemon();
+
+    }
+
 
 }

@@ -21,7 +21,7 @@ class Pokemon
      * @param string $name
      * @return string
      */
-    public function setName(string $name): string
+    private function setName(string $name): string
     {
         return $this->name = ucfirst($name);
     }

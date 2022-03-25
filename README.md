@@ -63,10 +63,10 @@ docker exec -it app bash
 ```
 
 ### URLs:
-| Env   | Url                         |   
-|-------|-----------------------------|
-| Local | http://localhost:8080/health |
-| QA    | -                           |
+| Env   | Url                        |   
+|-------|----------------------------|
+| Local | http://localhost/health |
+| QA    | -                          |
 
 
 
